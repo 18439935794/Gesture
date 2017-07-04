@@ -14,6 +14,8 @@
 		5FDD939C1F09DD6300448820 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 5FDD939B1F09DD6300448820 /* Assets.xcassets */; };
 		5FDD939F1F09DD6300448820 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5FDD939D1F09DD6300448820 /* LaunchScreen.storyboard */; };
 		5FDD93AA1F09DD6300448820 /* gestureDemoUITests.m in Sources */ = {isa = PBXBuildFile; fileRef = 5FDD93A91F09DD6300448820 /* gestureDemoUITests.m */; };
+		5FDD93BD1F0B33B800448820 /* UIView+CornerRadius.m in Sources */ = {isa = PBXBuildFile; fileRef = 5FDD93BC1F0B33B800448820 /* UIView+CornerRadius.m */; };
+		5FDD93C11F0B38B900448820 /* sell.png in Resources */ = {isa = PBXBuildFile; fileRef = 5FDD93C01F0B38B900448820 /* sell.png */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -42,6 +44,9 @@
 		5FDD93AB1F09DD6300448820 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		5FDD93B41F0A38E400448820 /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/Main.strings"; sourceTree = "<group>"; };
 		5FDD93B51F0A38E400448820 /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/LaunchScreen.strings"; sourceTree = "<group>"; };
+		5FDD93BB1F0B33B800448820 /* UIView+CornerRadius.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+CornerRadius.h"; sourceTree = "<group>"; };
+		5FDD93BC1F0B33B800448820 /* UIView+CornerRadius.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+CornerRadius.m"; sourceTree = "<group>"; };
+		5FDD93C01F0B38B900448820 /* sell.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = sell.png; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -83,6 +88,7 @@
 		5FDD938E1F09DD6300448820 /* gestureDemo */ = {
 			isa = PBXGroup;
 			children = (
+				5FDD93BA1F0B337000448820 /* UIView+CornerRadius */,
 				5FDD93921F09DD6300448820 /* AppDelegate.h */,
 				5FDD93931F09DD6300448820 /* AppDelegate.m */,
 				5FDD93951F09DD6300448820 /* ViewController.h */,
@@ -99,6 +105,7 @@
 		5FDD938F1F09DD6300448820 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				5FDD93C01F0B38B900448820 /* sell.png */,
 				5FDD93901F09DD6300448820 /* main.m */,
 			);
 			name = "Supporting Files";
@@ -111,6 +118,15 @@
 				5FDD93AB1F09DD6300448820 /* Info.plist */,
 			);
 			path = gestureDemoUITests;
+			sourceTree = "<group>";
+		};
+		5FDD93BA1F0B337000448820 /* UIView+CornerRadius */ = {
+			isa = PBXGroup;
+			children = (
+				5FDD93BB1F0B33B800448820 /* UIView+CornerRadius.h */,
+				5FDD93BC1F0B33B800448820 /* UIView+CornerRadius.m */,
+			);
+			name = "UIView+CornerRadius";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -199,6 +215,7 @@
 				5FDD939F1F09DD6300448820 /* LaunchScreen.storyboard in Resources */,
 				5FDD939C1F09DD6300448820 /* Assets.xcassets in Resources */,
 				5FDD939A1F09DD6300448820 /* Main.storyboard in Resources */,
+				5FDD93C11F0B38B900448820 /* sell.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -217,6 +234,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				5FDD93971F09DD6300448820 /* ViewController.m in Sources */,
+				5FDD93BD1F0B33B800448820 /* UIView+CornerRadius.m in Sources */,
 				5FDD93941F09DD6300448820 /* AppDelegate.m in Sources */,
 				5FDD93911F09DD6300448820 /* main.m in Sources */,
 			);
@@ -421,6 +439,7 @@
 				5FDD93B01F09DD6300448820 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		5FDD93B11F09DD6300448820 /* Build configuration list for PBXNativeTarget "gestureDemoUITests" */ = {
 			isa = XCConfigurationList;
@@ -429,6 +448,7 @@
 				5FDD93B31F09DD6300448820 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
