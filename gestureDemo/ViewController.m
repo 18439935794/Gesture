@@ -8,7 +8,7 @@
 
 #import "ViewController.h"
 
-@interface ViewController ()
+@interface ViewController ()<UIGestureRecognizerDelegate>
 {
     CGRect redViewRect;
     UILabel *redLabel;
@@ -60,10 +60,17 @@
         //手势点击次数
         tapGesture.numberOfTapsRequired = 1;// Default is 1
         //点击手指数量
-        tapGesture.numberOfTouchesRequired = 1;// Default is 1
+//        tapGesture.numberOfTouchesRequired = 1;// Default is 1
         //将手势识别器添加到view上
         [sender addGestureRecognizer:tapGesture];
 
+    UITapGestureRecognizer *tapGestureD = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(tapGestureAction:)];
+    //手势点击次数
+    tapGesture.numberOfTapsRequired = 2;// Default is 1
+    //将手势识别器添加到view上
+    [sender addGestureRecognizer:tapGestureD];
+    // 若同时添加两个手势的情况下，需要设置优先级
+    [tapGestureD requireGestureRecognizerToFail:tapGesture];
 
 }
 /**
@@ -85,7 +92,7 @@
 - (void)addPanGestureWithView:(id)sender {
     //2,pan(平移)
     UIPanGestureRecognizer *panGesture = [[UIPanGestureRecognizer alloc]initWithTarget:self action:@selector(panGestureAction:)];
-    panGesture.minimumNumberOfTouches = 1;//最少点击次数---
+    panGesture.minimumNumberOfTouches = 1;//点击时最少需要几个手指
     [sender addGestureRecognizer:panGesture];
 }
 
@@ -180,7 +187,7 @@
         
     }
 }
-#pragma mark-----------------------4,pinch捏和-------------------------------------
+#pragma mark-----------------------4,pinch捏合-------------------------------------
 
 /**
  添加捏合手势
@@ -252,7 +259,7 @@
         UIRectEdgeRight  = 1 << 3,
         UIRectEdgeAll    = UIRectEdgeTop | UIRectEdgeLeft | UIRectEdgeBottom | UIRectEdgeRight
     }*/
-    sePanGesture.edges = UIRectEdgeLeft;
+    sePanGesture.edges =  UIRectEdgeLeft ;
     [aView addGestureRecognizer:sePanGesture];
 
 }
@@ -262,6 +269,7 @@
 -(void)seGestureAction:(UIScreenEdgePanGestureRecognizer*)gesture
 {
     NSLog(@"%s",__FUNCTION__);
+  
     UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"边缘滑入" message:nil preferredStyle:UIAlertControllerStyleAlert];
     UIAlertAction *action = [UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleDestructive handler:nil];
     [alert addAction:action];
@@ -302,11 +310,9 @@
     UILongPressGestureRecognizer *longPress = [[UILongPressGestureRecognizer alloc]initWithTarget:self action:@selector(longPressAction:)];
     /* numberOfTouchesRequired这个属性保存了有多少个手指点击了屏幕,因此你要确保你每次的点击手指数目是一样的,默认值是为 0. */
     longPress.numberOfTouchesRequired = 1;//手指个数
-    //longPress.minimumPressDuration = 2;//按的最少时长
+//    longPress.minimumPressDuration = 3;//按的最少时长，Default is 0.5.
     /*最大100像素的运动是手势识别所允许的  Default is 10.*/
-    longPress.allowableMovement = 100; //
-    /*这个参数表示,两次点击之间间隔的时间长度。Default is 0.5.*/
-    longPress.minimumPressDuration = 1.0;
+    longPress.allowableMovement = 10; //在手势失败之前允许的以像素为单位的最大移动量。 默认值为10.
     [aView addGestureRecognizer:longPress];
 
 }
@@ -324,17 +330,17 @@
             //系统的粘贴复制的小弹框
             //menuController  单例
             UIMenuController *ctr = [UIMenuController sharedMenuController];
-           /*自定义Menu按钮
+/*
+            //自定义Menu按钮
             //menu按钮
             UIMenuItem *mItem = [[UIMenuItem alloc]initWithTitle:@"自定义" action:@selector(longPressMenuAction)];
             
-            UIMenuItem *mItem1 = [[UIMenuItem alloc]initWithTitle:@"复制" action:@selector(longPressMenuAction)];
-            UIMenuItem *mItem2 = [[UIMenuItem alloc]initWithTitle:@"粘贴" action:@selector(longPressMenuAction)];
+            UIMenuItem *mItem1 = [[UIMenuItem alloc]initWithTitle:@"删除" action:@selector(longPressMenuAction)];
             
             //将item添加到controller中
-            ctr.menuItems = [NSArray  arrayWithObjects:mItem,mItem1,mItem2,nil];//@[mItem,mItem1,mItem2];
-            */
+            ctr.menuItems = [NSArray  arrayWithObjects:mItem,mItem1,nil];//
             
+       */
             //获得手指点击的位置
             CGPoint point = [gesture locationInView:gesture.view];
             //设置显示的位置
@@ -355,6 +361,7 @@
 -(void)longPressMenuAction
 {
     NSLog(@"menuItem点击");
+    self.longPressLabel.text = nil;
    
 }
 #pragma mark - System Delegate Method 系统自带的代理方法
@@ -371,6 +378,10 @@
  */
 -(BOOL)canPerformAction:(SEL)action withSender:(id)sender
 {
+//    if (action == @selector(longPressMenuAction)) {
+//        return YES;
+//    }
+
     if (action == @selector(copy:)||action == @selector(paste:)||action == @selector(cut:)) {
         return YES;
     }
@@ -412,5 +423,17 @@
 -(void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event{
     [self.longPressTF resignFirstResponder];
 }
+#pragma mark--私有方法
+- (IBAction)toPinchVC:(UIButton *)sender {
+    if (self.pinchImg) {
+        [self.pinchImg removeFromSuperview];
 
+    }
+
+}
+- (BOOL)gestureRecognizer:(UIGestureRecognizer*)gestureRecognizer shouldBeRequiredToFailByGestureRecognizer:(UIGestureRecognizer*)otherGestureRecognizer
+
+{
+    return YES;
+}
 @end
