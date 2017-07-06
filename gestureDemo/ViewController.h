@@ -1,10 +1,15 @@
-//
-//  ViewController.h
-//  gestureDemo
-//
-//  Created by weifangzou on 2017/7/3.
-//  Copyright © 2017年 Ttpai. All rights reserved.
-//
+
+/***********************************************************
+ 
+ File name: ViewController.h
+ Author:    zouweifang
+ Description:
+ 该类是测试类
+ 
+ History:
+ 2017/7/3.: Created
+ 
+ ************************************************************/
 
 #import <UIKit/UIKit.h>
 

@@ -1,24 +1,35 @@
-//
-//  ViewController.m
-//  gestureDemo
-//
-//  Created by weifangzou on 2017/7/3.
-//  Copyright © 2017年 Ttpai. All rights reserved.
-//
 
+/***********************************************************
+ 
+ File name: ViewController.m
+ Author:    zouweifang
+ Description:
+ 该类是测试类
+ 
+ History:
+ 2017/7/3.: Created
+ 
+ ************************************************************/
 #import "ViewController.h"
 
 @interface ViewController ()<UIGestureRecognizerDelegate>
 {
-    CGRect redViewRect;
-    UILabel *redLabel;
+    CGRect redViewRect; //记录手势开始的原始frame
+    
 }
+/** 点击测试label */
 @property (weak, nonatomic) IBOutlet UILabel *tapLabel;
+/** 拖拽测试label */
 @property (weak, nonatomic) IBOutlet UILabel *panLabel;
+/** 轻扫测试label */
 @property (weak, nonatomic) IBOutlet UILabel *swipeLabel;
+/** 捏合测试Imageview */
 @property (weak, nonatomic) IBOutlet UIImageView *pinchImg;
+/** 旋转测试label */
 @property (weak, nonatomic) IBOutlet UILabel *rotationLabel;
+/** 长按测试textField */
 @property (weak, nonatomic) IBOutlet UITextField *longPressTF;
+/** 长按测试label */
 @property (weak, nonatomic) IBOutlet UILabel *longPressLabel;
 
 @end
@@ -43,6 +54,20 @@
     [self addRotationGestureWithView:self.rotationLabel];
     //    7.长按
     [self addLongPressGestureWithView:self.longPressLabel];
+  /*
+     注意:
+      代码我是写在ViewDidLoad中，而我们知道这个方法的生命周期比较早，所以我们换个地方写或者延迟一段时间再打印，两种方法都可以得到结果(由此可以推理出我们响应者树的构造过程是在ViewDidLoad周期中来完成的，这个函数会将当前实例的构成的响应者子树合并到我们整个根树中)
+   */
+    double delayInSeconds = 2.0;
+    dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, (int64_t)(delayInSeconds * NSEC_PER_SEC));
+    dispatch_after(popTime, dispatch_get_main_queue(), ^(void){
+        NSLog(@"1111111%@",_tapLabel.nextResponder);
+        NSLog(@"1111111%@",_tapLabel.nextResponder.nextResponder);
+        NSLog(@"1111111%@",_tapLabel.nextResponder.nextResponder.nextResponder);
+        NSLog(@"1111111%@",_tapLabel.nextResponder.nextResponder.nextResponder.nextResponder);
+        NSLog(@"1111111%@",_tapLabel.nextResponder.nextResponder.nextResponder.nextResponder.nextResponder);
+       
+    });
     
 }
 #pragma mark - Private Method 私有方法
@@ -112,6 +137,7 @@
             //改变
         case UIGestureRecognizerStateChanged:
         {
+            NSLog(@"改变");
             //1,改变redView的frame
             UILabel *redView = (UILabel *)gesture.view;
             //2,改变的坐标-移动的距离
@@ -156,10 +182,10 @@
      UISwipeGestureRecognizerDirectionUp    = 1 << 2,
      UISwipeGestureRecognizerDirectionDown  = 1 << 3
      };
-     UISwipeGestureRecognizerDirectionLeft|UISwipeGestureRecognizerDirectionUp = 6
-     UISwipeGestureRecognizerDirectionRight|UISwipeGestureRecognizerDirectionDown = 9
-     UISwipeGestureRecognizerDirectionLeft|UISwipeGestureRecognizerDirectionDown = 10
-     UISwipeGestureRecognizerDirectionRight|UISwipeGestureRecognizerDirectionUp = 5
+     UISwipeGestureRecognizerDirectionLeft|UISwipeGestureRecognizerDirectionUp
+     UISwipeGestureRecognizerDirectionRight|UISwipeGestureRecognizerDirectionDown
+     UISwipeGestureRecognizerDirectionLeft|UISwipeGestureRecognizerDirectionDown
+     UISwipeGestureRecognizerDirectionRight|UISwipeGestureRecognizerDirectionUp
      */
     swipeGesture.direction = UISwipeGestureRecognizerDirectionRight;
 
@@ -431,9 +457,20 @@
     }
 
 }
+/*
+ //手势优先级
+- (BOOL)gestureRecognizer:(UIGestureRecognizer*)gestureRecognizer shouldRequireFailureOfGestureRecognizer:(UIGestureRecognizer*)otherGestureRecognizer
+
+{
+    
+}
+
 - (BOOL)gestureRecognizer:(UIGestureRecognizer*)gestureRecognizer shouldBeRequiredToFailByGestureRecognizer:(UIGestureRecognizer*)otherGestureRecognizer
 
 {
-    return YES;
+    
 }
+
+
+*/
 @end
